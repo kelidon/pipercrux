@@ -17,10 +17,6 @@ class AuthView extends StatelessWidget {
     List<Widget> _widgetOptions = <Widget>[
       SignInView(),
       SignUpView(),
-//      ChangeNotifierProvider<PageModel>(
-//        builder: (_) => PageModel(),
-//        child: Page(),
-//      ),
     ];
 
     void _onItemTapped(int index) {

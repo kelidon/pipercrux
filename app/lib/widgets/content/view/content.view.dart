@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pipercrux/main.dart';
 import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:pipercrux/widgets/content/view/file-tile.component.dart';
 import 'package:pipercrux/widgets/content/view/users-list.view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -15,6 +15,7 @@ class ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeModel = Provider.of<ContentModel>(context);
+    final authState = Provider.of<AuthStatusNotifier>(context);
 
     List<Widget> _widgetOptions = <Widget>[
       FilesListView(),
@@ -33,7 +34,9 @@ class ContentView extends StatelessWidget {
             color: Color(0xFF26A69A),
           ),
           tooltip: 'Show Snackbar',
-          onPressed: () {},
+          onPressed: () {
+            authState.user = null;
+          },
         ),
       ]),
       body: Center(

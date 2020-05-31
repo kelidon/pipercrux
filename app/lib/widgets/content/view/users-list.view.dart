@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pipercrux/widgets/content/view/user-tile.component.dart';
 
-import 'file-tile.component.dart';
-
 class UsersListView extends StatelessWidget {
   UsersListView({Key key}) : super(key: key);
 

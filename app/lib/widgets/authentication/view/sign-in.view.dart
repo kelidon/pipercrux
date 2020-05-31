@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:pipercrux/data/users_controller.dart';
 import 'package:pipercrux/main.dart';
 import 'package:provider/provider.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class SignInView extends StatelessWidget {
+class SignInView extends StatefulWidget {
   SignInView({Key key}) : super(key: key);
+
+  @override
+  _SignInViewState createState() => _SignInViewState();
+}
+
+class _SignInViewState extends State<SignInView> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final controller = UsersController.instance;
 
   @override
   Widget build(BuildContext context) {
     //final signInModel = Provider.of<SignInModel>(context);
+    final authState = Provider.of<AuthStatusNotifier>(context);
 
     const TextStyle optionStyle = TextStyle(fontSize: 30);
 
@@ -27,6 +37,7 @@ class SignInView extends StatelessWidget {
           flex: 2,
         ),
         TextField(
+          controller: _usernameController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: const EdgeInsets.all(20.0),
@@ -37,6 +48,7 @@ class SignInView extends StatelessWidget {
           flex: 1,
         ),
         TextField(
+          controller: _passwordController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: const EdgeInsets.all(20.0),
@@ -47,7 +59,16 @@ class SignInView extends StatelessWidget {
           flex: 2,
         ),
         RaisedButton(
-          onPressed: () {},
+          onPressed: () async {
+            final username = _usernameController.text;
+            final rawPassword = _passwordController.text;
+            log.d('submitting $username:$rawPassword');
+
+            final user = await controller.attemtSignIn(username, rawPassword);
+
+            // todo: notify of bad credentials
+            authState.user = user;
+          },
           padding: const EdgeInsets.all(15.0),
           color: Color(0xFF26A69A),
           child: Text('Proceed', style: TextStyle(fontSize: 20)),
