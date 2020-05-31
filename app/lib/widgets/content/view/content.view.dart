@@ -5,6 +5,7 @@ import 'package:pipercrux/widgets/content/view/users-list.view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
+import '../../../main.dart';
 import 'files-list.view.dart';
 
 class ContentView extends StatelessWidget {
@@ -16,6 +17,7 @@ class ContentView extends StatelessWidget {
   Widget build(BuildContext context) {
     final contentModel = Provider.of<ContentModel>(context);
     final appModel = Provider.of<AppModel>(context);
+    final authState = Provider.of<AuthStatusNotifier>(context);
 
     List<Widget> _widgetOptions = <Widget>[
       FilesListView(),
@@ -26,10 +28,6 @@ class ContentView extends StatelessWidget {
       contentModel.changePage(index);
     }
 
-    void _onLock() {
-      appModel.changePage();
-    }
-
     return Scaffold(
       appBar: AppBar(title: Text(title), actions: <Widget>[
         IconButton(
@@ -38,7 +36,9 @@ class ContentView extends StatelessWidget {
             color: Color(0xFF26A69A),
           ),
           tooltip: 'Show Snackbar',
-          onPressed: _onLock,
+          onPressed: () {
+            authState.user = null;
+          },
         ),
       ]),
       body: Center(

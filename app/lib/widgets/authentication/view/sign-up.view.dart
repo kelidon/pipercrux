@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/widgets/app/model/app.model.dart';
+import 'package:pipercrux/data/users_controller.dart';
 import 'package:provider/provider.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class SignUpView extends StatelessWidget {
+import '../../../main.dart';
+
+class SignUpView extends StatefulWidget {
   SignUpView({Key key}) : super(key: key);
 
+  @override
+  _SignUpViewState createState() => _SignUpViewState();
+}
+
+class _SignUpViewState extends State<SignUpView> {
+  final controller = UsersController.instance;
+
+  final _usernameText = TextEditingController();
+  final _passwordText = TextEditingController();
+  final _keyText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final appModel = Provider.of<AppModel>(context);
+    //final signUpModel = Provider.of<SignUpModel>(context);
+    final authState = Provider.of<AuthStatusNotifier>(context);
 
-    const TextStyle optionStyle =
-    TextStyle(fontSize: 30);
-
-    void _onProceed() {
-      appModel.changePage();
-    }
+    const TextStyle optionStyle = TextStyle(fontSize: 30);
 
     return Container(
         width: 300,
@@ -24,9 +31,16 @@ class SignUpView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Spacer(flex: 3,),
-            Text('Sign up', style: optionStyle,),
-            Spacer(flex: 2,),
+            Spacer(
+              flex: 3,
+            ),
+            Text(
+              'Sign up',
+              style: optionStyle,
+            ),
+            Spacer(
+              flex: 2,
+            ),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -34,7 +48,9 @@ class SignUpView extends StatelessWidget {
                 hintText: 'Login',
               ),
             ),
-            Spacer(flex: 1,),
+            Spacer(
+              flex: 1,
+            ),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -42,7 +58,9 @@ class SignUpView extends StatelessWidget {
                 hintText: 'Password',
               ),
             ),
-            Spacer(flex: 1,),
+            Spacer(
+              flex: 1,
+            ),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -50,16 +68,43 @@ class SignUpView extends StatelessWidget {
                 hintText: 'Key',
               ),
             ),
-            Spacer(flex: 2,),
+            Spacer(
+              flex: 2,
+            ),
             RaisedButton(
-              onPressed: _onProceed,
+              onPressed: () async {
+                final username = _usernameText.text;
+                final rawPassword = _passwordText.text;
+                final rawKey = _keyText.text;
+
+                if (!_allHaveLength([username, rawPassword, rawKey],
+                    minInclusive: 3)) {
+                  // todo: notify user
+                  log.i('bad input ${[username, rawPassword, rawKey]}');
+                  return;
+                }
+
+                log.i('want to create $username $rawPassword $rawKey');
+                final created =
+                    await controller.signUp(username, rawPassword, rawKey);
+
+                log.i('created $created');
+                authState.user = created;
+              },
               padding: const EdgeInsets.all(15.0),
-              color:  Color(0xFF26A69A),
+              color: Color(0xFF26A69A),
               child: Text('Proceed', style: TextStyle(fontSize: 20)),
             ),
-            Spacer(flex: 5,),
+            Spacer(
+              flex: 5,
+            ),
           ],
-        )
-    );
+        ));
   }
+
+  bool _hasLength(String str, {int len = 0}) => (str?.length ?? 0) >= len;
+
+  bool _allHaveLength(List<String> strs, {int minInclusive = 0}) => strs
+      .map((s) => _hasLength(s, len: minInclusive))
+      .fold(true, (previousValue, element) => previousValue && element);
 }

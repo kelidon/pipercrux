@@ -1,22 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pipercrux/data/users_controller.dart';
 import 'package:pipercrux/main.dart';
-import 'package:pipercrux/widgets/app/model/app.model.dart';
-import 'package:pipercrux/widgets/content/model/content.model.dart';
 import 'package:provider/provider.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class SignInView extends StatelessWidget {
+class SignInView extends StatefulWidget {
   SignInView({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final appModel = Provider.of<AppModel>(context);
-    const TextStyle optionStyle = TextStyle(fontSize: 30);
+  _SignInViewState createState() => _SignInViewState();
+}
 
-    void _onProceed() {
-      appModel.changePage();
-    }
+class _SignInViewState extends State<SignInView> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final controller = UsersController.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    final authState = Provider.of<AuthStatusNotifier>(context);
+    const TextStyle optionStyle = TextStyle(fontSize: 30);
 
     return Container(
       width: 300,
@@ -55,7 +57,16 @@ class SignInView extends StatelessWidget {
             flex: 2,
           ),
           RaisedButton(
-            onPressed: _onProceed,
+            onPressed: () async {
+              final username = _usernameController.text;
+              final rawPassword = _passwordController.text;
+              log.d('submitting $username:$rawPassword');
+
+              final user = await controller.attemtSignIn(username, rawPassword);
+
+              // todo: notify of bad credentials
+              authState.user = user;
+            },
             padding: const EdgeInsets.all(15.0),
             color: Color(0xFF26A69A),
             child: Text('Proceed', style: TextStyle(fontSize: 20)),
