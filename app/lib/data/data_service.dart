@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pipercrux/data/models.dart';
 import 'package:pipercrux/main.dart';
