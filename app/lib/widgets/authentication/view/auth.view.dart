@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/widgets/authorization/model/auth.model.dart';
-import 'package:pipercrux/widgets/authorization/view/sign-in.view.dart';
-import 'package:pipercrux/widgets/authorization/view/sign-up.view.dart';
+import 'package:pipercrux/widgets/authentication/model/auth.model.dart';
+import 'package:pipercrux/widgets/authentication/view/sign-in.view.dart';
+import 'package:pipercrux/widgets/authentication/view/sign-up.view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 

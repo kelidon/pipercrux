@@ -17,6 +17,7 @@ class FileTileComponent extends StatelessWidget {
     var status = isCruxed ? 'cruxed' : 'full';
     const TextStyle nameStyle = TextStyle(fontSize: 18);
     const TextStyle dateStyle = TextStyle(fontSize: 15, color: Colors.grey);
+    const TextStyle statusStyle = TextStyle(fontSize: 10, color: Colors.grey);
 
     return InkWell(
       onTap: () {},
@@ -51,12 +52,16 @@ class FileTileComponent extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(20, 3, 0, 0),
-              child: Icon(
-                isCruxed ? Icons.center_focus_weak : Icons.center_focus_strong,
-                color: Colors.teal[150],
-                size: 50.0,
-                semanticLabel: isCruxed ? 'cruxed' : 'full',
+              padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+              child: Column(
+                children: <Widget>[
+                  Icon(
+                    isCruxed ? Icons.center_focus_weak : Icons.center_focus_strong,
+                    color: Colors.teal[150],
+                    size: 38.0,
+                  ),
+                  Text(status, style: statusStyle,)
+                ],
               ),
             )
           ],
