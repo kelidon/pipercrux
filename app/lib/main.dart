@@ -7,34 +7,53 @@ import 'package:pipercrux/widgets/content/view/content.view.dart';
 import 'package:provider/provider.dart';
 
 Logger log = new Logger();
+
 void main() {
   log.i('START ');
-  runApp(Application());
+  runApp(ChangeNotifierProvider(
+    create: (_) => AuthStatusNotifier(),
+    child: Application(),
+  ));
+}
+
+class AuthStatusNotifier with ChangeNotifier {
+  bool _authenticated = false;
+  set authenticated(bool a) {
+    _authenticated = a;
+    notifyListeners();
+  }
+
+  get authenticated => _authenticated;
+
+  String _username;
+  set username(String username) {
+    _username = username;
+    notifyListeners();
+  }
+
+  get username => _username;
 }
 
 class Application extends StatelessWidget {
-  bool isLogged = true;
-
   @override
   Widget build(BuildContext context) {
+    final isAuthenticated = Provider.of<AuthStatusNotifier>(context).authenticated;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pipercrux',
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: isLogged
-          ?
-      ChangeNotifierProvider<ContentModel>(
-        create: (_) => ContentModel(),
-        child: ContentView(title: 'Pipercrux',),
-      )
-          :
-      ChangeNotifierProvider<AuthModel>(
-        create: (_) => AuthModel(),
-        child: AuthView(title: 'Pipercrux',),
-      ),
+      home: isAuthenticated
+          ? ChangeNotifierProvider<ContentModel>(
+              create: (_) => ContentModel(),
+              child: ContentView(title: 'Pipercrux'),
+            )
+          : ChangeNotifierProvider<AuthModel>(
+              create: (_) => AuthModel(),
+              child: AuthView(title: 'Pipercrux'),
+            ),
     );
   }
 }
-
