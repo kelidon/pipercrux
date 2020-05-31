@@ -6,6 +6,8 @@ import 'package:pipercrux/widgets/content/model/content.model.dart';
 import 'package:pipercrux/widgets/content/view/content.view.dart';
 import 'package:provider/provider.dart';
 
+import 'data/models.dart';
+
 Logger log = new Logger();
 
 void main() {
@@ -17,28 +19,16 @@ void main() {
 }
 
 class AuthStatusNotifier with ChangeNotifier {
-  bool _authenticated = false;
-  set authenticated(bool a) {
-    _authenticated = a;
+  User _user;
+  set user(User user) {
+    _user = user;
     notifyListeners();
   }
 
-  get authenticated => _authenticated;
-
-  String _username;
-  set username(String username) {
-    _username = username;
-    notifyListeners();
-  }
-  get username => _username;
-
-  String _userId;
-  set userId(String id) {
-    _userId = id;
-    _authenticated = id != null;
-    notifyListeners();
-  }
-  get userId => _userId;
+  get authenticated => _user?.id != null;
+  get username => _user?.username;
+  get userId => _user?.id;
+  
 }
 
 class Application extends StatelessWidget {
