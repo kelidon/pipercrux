@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.0"
+  asn1lib:
+    dependency: transitive
+    description:
+      name: asn1lib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.4"
   async:
     dependency: transitive
     description:
@@ -128,6 +135,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  hex:
+    dependency: transitive
+    description:
+      name: hex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   http:
     dependency: transitive
     description:
@@ -252,6 +266,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  steel_crypt:
+    dependency: "direct main"
+    description:
+      name: steel_crypt
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -287,6 +308,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
+  union:
+    dependency: transitive
+    description:
+      name: union
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3+1"
   uuid:
     dependency: "direct main"
     description:

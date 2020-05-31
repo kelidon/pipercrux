@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:provider/provider.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class FileTileComponent extends StatelessWidget {
   FileTileComponent({Key key, this.name, this.date, this.isCruxed})

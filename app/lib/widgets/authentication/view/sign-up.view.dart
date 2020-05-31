@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pipercrux/data/users_controller.dart';
 import 'package:provider/provider.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../../main.dart';
 

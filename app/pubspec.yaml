@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   uuid: ^2.0.4
   cloud_firestore: ^0.13.6
+  steel_crypt: ^2.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
