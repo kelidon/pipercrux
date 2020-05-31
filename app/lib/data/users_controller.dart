@@ -9,11 +9,21 @@ class UsersController {
 
   DataService get service => DataService.instance;
 
+  Future<User> signUp(String username, String rawPassword, String key) {
+    final request = User(
+      username: username,
+      passwordHash: rawPassword,
+      cypherKey: key,
+    );
+
+    return service.createUser(request);
+  }
+
   /**
-   * @return document id for users or [null] if failed
+   * @return [user.id] is [null] (or other default val) if user not found
    */
   Future<User> attemtSignIn(String username, String rawPassword) {
-    return service.findOne(username).catchError((err) {
+    return service.findOneByUsername(username).catchError((err) {
       log.d('not found with $err');
       return User();
     }).timeout(Duration(seconds: 5), onTimeout: () {

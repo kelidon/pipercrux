@@ -12,17 +12,41 @@ class DataService {
     return _instance;
   }
 
-  Future<User> findOne(String username) {
+  Future<User> createUser(User request) async {
+    final nameUsed = await db
+        .collection('users')
+        .where('username', isEqualTo: request.username)
+        .limit(1)
+        .getDocuments()
+        .asStream()
+        .expand((qs) => qs.documents)
+        .any((ds) => ds.exists)
+        .timeout(Duration(seconds: 5), onTimeout: () => false)
+        .catchError((err) => false);
+    
+    if (nameUsed) {
+      return Future.value(User());
+    }
+
     return db
-    .collection('users')
-    .where('username', isEqualTo: username)
-    .limit(1)
-    .getDocuments()
-    .asStream()
-    .expand((query) => query.documents)
-    .where((doc) => doc.exists)
-    .first
-    .then((doc) => User.fromMap(_dataWithDocId(doc)));
+        .collection('users')
+        .add(request.toMap())
+        .then((ref) => ref.get())
+        .then((doc) => Future.value(_dataWithDocId(doc)))
+        .then(User.fromMap);
+  }
+
+  Future<User> findOneByUsername(String username) {
+    return db
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .limit(1)
+        .getDocuments()
+        .asStream()
+        .expand((query) => query.documents)
+        .where((doc) => doc.exists)
+        .first
+        .then((doc) => User.fromMap(_dataWithDocId(doc)));
   }
 
   Map<String, dynamic> _dataWithDocId(DocumentSnapshot doc) {

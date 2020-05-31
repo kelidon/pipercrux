@@ -9,7 +9,7 @@ class User {
 
   User({this.id, this.username, this.cypherKey, this.passwordHash, this.userFiles, this.storedParts});
 
-  static fromMap(Map<String, dynamic> map) {
+  static User fromMap(Map<String, dynamic> map) {
     return User(
       id: map['uid'],
       username: map['username'],
@@ -25,6 +25,12 @@ class User {
   String toString() {
     return 'User(uid=$id, username=$username, owned_files=${userFiles?.length}, stored_parts=${storedParts?.length})';
   }
+
+  Map<String, dynamic> toMap() => {
+    'username': username,
+    'password_hash': passwordHash,
+    'cypher_key': cypherKey
+  };
 }
 
 class StorableData {
