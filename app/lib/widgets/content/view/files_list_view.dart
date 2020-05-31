@@ -1,34 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:pipercrux/entities/file.dart';
-import 'package:pipercrux/entities/user.dart';
-import 'package:pipercrux/widgets/content/model/animated-list.model.dart';
-import 'package:pipercrux/widgets/content/view/add-user.view.dart';
-import 'package:pipercrux/widgets/content/view/content.view.dart';
-import 'package:pipercrux/widgets/content/view/user-tile.component.dart';
+import 'package:pipercrux/widgets/content/model/animated_list_model.dart';
+import 'package:pipercrux/widgets/content/view/content_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../main.dart';
-import 'file-tile.component.dart';
+import 'file_tile_component.dart';
 
-class UsersListView extends StatefulWidget {
+class FilesListView extends StatefulWidget {
   @override
-  _UsersListViewState createState() => _UsersListViewState();
+  _FilesListViewState createState() => _FilesListViewState();
 }
 
-class _UsersListViewState extends State<UsersListView> {
+class _FilesListViewState extends State<FilesListView> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  ListModel<UserModel> _list;
-  UserModel _selectedItem;
+  ListModel<FileModel> _list;
+  FileModel _selectedItem;
 
   @override
   void initState() {
     super.initState();
-    _list = ListModel<UserModel>(
+    _list = ListModel<FileModel>(
       listKey: _listKey,
-      initialItems: <UserModel>[
-        UserModel('kelidon', '47.211.157.3',),
-        UserModel('captain', '37.205.131.6',)
+      initialItems: <FileModel>[
+        FileModel(
+          'TomRiddle.txt',
+          '02.05.1998',
+          true,
+        ),
+        FileModel(
+          'souls.txt',
+          '01.05.2020',
+          false,
+        )
       ],
       removedItemBuilder: _buildRemovedItem,
     );
@@ -36,9 +41,9 @@ class _UsersListViewState extends State<UsersListView> {
 
   Widget _buildItem(
       BuildContext context, int index, Animation<double> animation) {
-    return UserTileComponent(
+    return FileTileComponent(
       animation: animation,
-      user: _list[index],
+      file: _list[index],
       selected: _selectedItem == _list[index],
       onTap: () {
         setState(() {
@@ -49,18 +54,24 @@ class _UsersListViewState extends State<UsersListView> {
   }
 
   Widget _buildRemovedItem(
-      UserModel user, BuildContext context, Animation<double> animation) {
-    return UserTileComponent(
+      FileModel file, BuildContext context, Animation<double> animation) {
+    return FileTileComponent(
       animation: animation,
-      user: user,
+      file: file,
       selected: false,
     );
   }
 
   void _insert() {
     final int index =
-    _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
-    _list.insert(index, UserModel('its MARRIOO', '255.255.255.0'));
+        _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
+    _list.insert(
+        index,
+        FileModel(
+          'it goes brrrrr.txt',
+          'today',
+          false,
+        ));
   }
 
   void _remove() {
@@ -74,7 +85,6 @@ class _UsersListViewState extends State<UsersListView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: AnimatedList(
         key: _listKey,
@@ -82,12 +92,7 @@ class _UsersListViewState extends State<UsersListView> {
         itemBuilder: _buildItem,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddUserView()),
-          );
-        },
+        onPressed: _insert,
         child: Icon(LineAwesomeIcons.plus),
       ),
     );

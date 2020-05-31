@@ -6,6 +6,7 @@ class DataService {
   final db = Firestore.instance;
 
   static DataService _instance;
+
   static get instance {
     if (_instance == null) _instance = DataService();
 
@@ -23,7 +24,7 @@ class DataService {
         .any((ds) => ds.exists)
         .timeout(Duration(seconds: 5), onTimeout: () => false)
         .catchError((err) => false);
-    
+
     if (nameUsed) {
       return Future.value(User());
     }

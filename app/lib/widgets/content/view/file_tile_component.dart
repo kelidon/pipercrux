@@ -6,10 +6,10 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 class FileTileComponent extends StatelessWidget {
   const FileTileComponent(
       {Key key,
-        @required this.animation,
-        this.onTap,
-        @required this.file,
-        this.selected: false})
+      @required this.animation,
+      this.onTap,
+      @required this.file,
+      this.selected: false})
       : assert(animation != null),
         assert(selected != null),
         super(key: key);
@@ -47,7 +47,8 @@ class FileTileComponent extends StatelessWidget {
                   Container(
                     decoration: const BoxDecoration(
                       border: Border(
-                        bottom: BorderSide(width: 1.0, color: Color(0xFF26A69A)),
+                        bottom:
+                            BorderSide(width: 1.0, color: Color(0xFF26A69A)),
                       ),
                     ),
                   ),
@@ -63,11 +64,16 @@ class FileTileComponent extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Icon(
-                    file.isCruxed ? Icons.center_focus_weak : Icons.center_focus_strong,
+                    file.isCruxed
+                        ? Icons.center_focus_weak
+                        : Icons.center_focus_strong,
                     color: Colors.teal[150],
                     size: 38.0,
                   ),
-                  Text(status, style: statusStyle,)
+                  Text(
+                    status,
+                    style: statusStyle,
+                  )
                 ],
               ),
             )

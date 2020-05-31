@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:pipercrux/widgets/content/view/users-list.view.dart';
+import 'package:pipercrux/widgets/content/model/content_model.dart';
+import 'package:pipercrux/widgets/content/view/users_list_view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 import '../../../main.dart';
-import 'files-list.view.dart';
+import 'files_list_view.dart';
 
 class ContentView extends StatelessWidget {
   ContentView({Key key, this.title}) : super(key: key);

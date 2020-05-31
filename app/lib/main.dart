@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:pipercrux/widgets/authentication/model/auth.model.dart';
-import 'package:pipercrux/widgets/authentication/view/auth.view.dart';
-import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:pipercrux/widgets/content/view/content.view.dart';
+import 'package:pipercrux/widgets/authentication/model/auth_model.dart';
+import 'package:pipercrux/widgets/authentication/view/auth_view.dart';
+import 'package:pipercrux/widgets/content/model/content_model.dart';
+import 'package:pipercrux/widgets/content/view/content_view.dart';
 import 'package:provider/provider.dart';
 import 'data/models.dart';
 

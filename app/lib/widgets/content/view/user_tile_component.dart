@@ -4,10 +4,10 @@ import 'package:pipercrux/entities/user.dart';
 class UserTileComponent extends StatelessWidget {
   const UserTileComponent(
       {Key key,
-        @required this.animation,
-        this.onTap,
-        @required this.user,
-        this.selected: false})
+      @required this.animation,
+      this.onTap,
+      @required this.user,
+      this.selected: false})
       : assert(animation != null),
         assert(selected != null),
         super(key: key);
@@ -19,7 +19,8 @@ class UserTileComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle loginStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+    const TextStyle loginStyle =
+        TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     const TextStyle fillerStyle = TextStyle(fontSize: 15, color: Colors.grey);
 
     return InkWell(

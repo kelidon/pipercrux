@@ -4,6 +4,4 @@ class FileModel {
   bool isCruxed;
 
   FileModel(this.name, this.date, this.isCruxed);
-
-
 }

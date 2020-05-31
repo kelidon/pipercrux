@@ -3,6 +3,4 @@ class UserModel {
   String filler;
 
   UserModel(this.login, this.filler);
-
-
 }

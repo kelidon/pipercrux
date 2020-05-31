@@ -7,6 +7,7 @@ import 'models.dart';
 
 class UsersController {
   static final _instance = UsersController();
+
   static UsersController get instance => _instance;
 
   DataService get service => DataService.instance;
@@ -31,10 +32,11 @@ class UsersController {
    * @return [user.id] is [null] (or other default val) if user not found
    */
   Future<User> attemtSignIn(String username, String rawPassword) {
-    return service.findOneByUsername(username)
+    return service
+        .findOneByUsername(username)
         .asStream()
-        .where((User u) =>
-            PassCrypt.scrypt(cpu: 512).checkPassKey(u.passwordSalt, rawPassword, u.passwordHash))
+        .where((User u) => PassCrypt.scrypt(cpu: 512)
+            .checkPassKey(u.passwordSalt, rawPassword, u.passwordHash))
         .first
         .catchError((err) {
       log.d('not found with $err');
