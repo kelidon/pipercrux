@@ -3,6 +3,7 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:pipercrux/entities/file.dart';
 import 'package:pipercrux/entities/user.dart';
 import 'package:pipercrux/widgets/content/model/animated-list.model.dart';
+import 'package:pipercrux/widgets/content/view/add-user.view.dart';
 import 'package:pipercrux/widgets/content/view/content.view.dart';
 import 'package:pipercrux/widgets/content/view/user-tile.component.dart';
 import 'package:provider/provider.dart';
@@ -81,7 +82,12 @@ class _UsersListViewState extends State<UsersListView> {
         itemBuilder: _buildItem,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _insert,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddUserView()),
+          );
+        },
         child: Icon(LineAwesomeIcons.plus),
       ),
     );
