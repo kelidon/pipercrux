@@ -37,6 +37,7 @@ class _SignInViewState extends State<SignInView> {
             flex: 2,
           ),
           TextField(
+            controller: _usernameController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: const EdgeInsets.all(20.0),
@@ -47,6 +48,7 @@ class _SignInViewState extends State<SignInView> {
             flex: 1,
           ),
           TextField(
+            controller: _passwordController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: const EdgeInsets.all(20.0),

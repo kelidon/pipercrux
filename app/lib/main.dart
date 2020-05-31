@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:pipercrux/widgets/app/model/app.model.dart';
-import 'package:pipercrux/widgets/app/view/app.view.dart';
+import 'package:pipercrux/widgets/authentication/model/auth.model.dart';
+import 'package:pipercrux/widgets/authentication/view/auth.view.dart';
+import 'package:pipercrux/widgets/content/model/content.model.dart';
+import 'package:pipercrux/widgets/content/view/content.view.dart';
 import 'package:provider/provider.dart';
 import 'data/models.dart';
 
@@ -17,21 +19,24 @@ void main() {
 
 class AuthStatusNotifier with ChangeNotifier {
   User _user;
+
   set user(User user) {
     _user = user;
     notifyListeners();
   }
 
   get authenticated => _user?.id != null;
+
   get username => _user?.username;
+
   get userId => _user?.id;
-  
 }
 
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isAuthenticated = Provider.of<AuthStatusNotifier>(context).authenticated;
+    final isAuthenticated =
+        Provider.of<AuthStatusNotifier>(context).authenticated;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -39,10 +44,15 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: ChangeNotifierProvider<AppModel>(
-        create: (_) => AppModel(),
-        child: AppView(),
-      ),
+      home: isAuthenticated
+          ? ChangeNotifierProvider<ContentModel>(
+              create: (_) => ContentModel(),
+              child: ContentView(title: 'Pipercrux'),
+            )
+          : ChangeNotifierProvider<AuthModel>(
+              create: (_) => AuthModel(),
+              child: AuthView(title: 'Pipercrux'),
+            ),
     );
   }
 }

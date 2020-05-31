@@ -20,7 +20,6 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    //final signUpModel = Provider.of<SignUpModel>(context);
     final authState = Provider.of<AuthStatusNotifier>(context);
 
     const TextStyle optionStyle = TextStyle(fontSize: 30);
@@ -42,6 +41,7 @@ class _SignUpViewState extends State<SignUpView> {
               flex: 2,
             ),
             TextField(
+              controller: _usernameText,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 contentPadding: const EdgeInsets.all(20.0),
@@ -52,6 +52,7 @@ class _SignUpViewState extends State<SignUpView> {
               flex: 1,
             ),
             TextField(
+              controller: _passwordText,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 contentPadding: const EdgeInsets.all(20.0),
@@ -62,6 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
               flex: 1,
             ),
             TextField(
+              controller: _keyText,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 contentPadding: const EdgeInsets.all(20.0),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/widgets/app/model/app.model.dart';
 import 'package:pipercrux/widgets/content/model/content.model.dart';
 import 'package:pipercrux/widgets/content/view/users-list.view.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +15,6 @@ class ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contentModel = Provider.of<ContentModel>(context);
-    final appModel = Provider.of<AppModel>(context);
     final authState = Provider.of<AuthStatusNotifier>(context);
 
     List<Widget> _widgetOptions = <Widget>[
