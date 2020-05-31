@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pipercrux/main.dart';
-import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:pipercrux/widgets/content/view/users-list.view.dart';
+import 'package:pipercrux/widgets/content/model/content_model.dart';
+import 'package:pipercrux/widgets/content/view/users_list_view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-import 'files-list.view.dart';
+import '../../../main.dart';
+import 'files_list_view.dart';
 
 class ContentView extends StatelessWidget {
   ContentView({Key key, this.title}) : super(key: key);
@@ -14,7 +14,7 @@ class ContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeModel = Provider.of<ContentModel>(context);
+    final contentModel = Provider.of<ContentModel>(context);
     final authState = Provider.of<AuthStatusNotifier>(context);
 
     List<Widget> _widgetOptions = <Widget>[
@@ -23,7 +23,7 @@ class ContentView extends StatelessWidget {
     ];
 
     void _onItemTapped(int index) {
-      homeModel.changePage(index);
+      contentModel.changePage(index);
     }
 
     return Scaffold(
@@ -40,7 +40,7 @@ class ContentView extends StatelessWidget {
         ),
       ]),
       body: Center(
-        child: _widgetOptions.elementAt(homeModel.getIndex()),
+        child: _widgetOptions.elementAt(contentModel.getIndex()),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -53,7 +53,7 @@ class ContentView extends StatelessWidget {
             title: Text("Users"),
           ),
         ],
-        currentIndex: homeModel.getIndex(),
+        currentIndex: contentModel.getIndex(),
         selectedItemColor: Colors.teal[150],
         onTap: _onItemTapped,
       ),
