@@ -23,7 +23,7 @@ class _CurrentUserDemoState extends State<CurrentUserDemo> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
-      value: usersController.signIn(username, rawPassword),
+      value: usersController.attemtSignIn(username, rawPassword),
       child: Column(
         children: <Widget>[
           AmaTextWidget(),

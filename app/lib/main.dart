@@ -30,8 +30,15 @@ class AuthStatusNotifier with ChangeNotifier {
     _username = username;
     notifyListeners();
   }
-
   get username => _username;
+
+  String _userId;
+  set userId(String id) {
+    _userId = id;
+    _authenticated = id != null;
+    notifyListeners();
+  }
+  get userId => _userId;
 }
 
 class Application extends StatelessWidget {

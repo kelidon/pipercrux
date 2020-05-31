@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pipercrux/data/data_service.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import 'models.dart';
 
 class UsersController {
@@ -11,9 +12,16 @@ class UsersController {
 
   DataService get service => DataService.instance;
 
-  Stream<User> signIn(String username, String rawPassword) {
-    return service
-        .findOneByUsername(username)
-        .where((user) => user.passwordHash == rawPassword); // todo: verify password
+  /**
+   * @return document id for users or [null] if failed
+   */
+  Future<User> attemtSignIn(String username, String rawPassword) {
+    return service.findOne(username).catchError((err) {
+      log.d('not found with $err');
+      return User();
+    }).timeout(Duration(seconds: 1), onTimeout: () {
+      log.i('timeout');
+      return User();
+    });
   }
 }

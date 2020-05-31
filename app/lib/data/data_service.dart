@@ -26,4 +26,21 @@ class DataService {
           })
         .map((map) => User.fromMap(map));
   }
+
+  Future<User> findOne(String username) {
+    return db
+    .collection('users')
+    .where('username', isEqualTo: username)
+    .limit(1)
+    .getDocuments()
+    .asStream()
+    .expand((query) => query.documents)
+    .where((doc) => doc.exists)
+    .first
+    .then((doc) => User.fromMap(_dataWithDocId(doc)));
+  }
+
+  Map<String, dynamic> _dataWithDocId(DocumentSnapshot doc) {
+    return doc.data..putIfAbsent('uid', () => doc.documentID);
+  }
 }

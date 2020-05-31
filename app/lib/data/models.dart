@@ -1,5 +1,5 @@
 class User {
-  String uid;
+  String id;
   String username;
   String passwordHash;
   String cypherKey;
@@ -7,11 +7,11 @@ class User {
   List<File> userFiles;
   List<FilePart> storedParts;
 
-  User({this.uid, this.username, this.cypherKey, this.passwordHash, this.userFiles, this.storedParts});
+  User({this.id, this.username, this.cypherKey, this.passwordHash, this.userFiles, this.storedParts});
 
   static fromMap(Map<String, dynamic> map) {
     return User(
-      uid: map['uid'],
+      id: map['uid'],
       username: map['username'],
       passwordHash: map['password_hash'],
       cypherKey: map['cypher_key'],
@@ -23,7 +23,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(uid=$uid, username=$username, owned_files=${userFiles?.length}, stored_parts=${storedParts?.length})';
+    return 'User(uid=$id, username=$username, owned_files=${userFiles?.length}, stored_parts=${storedParts?.length})';
   }
 }
 
