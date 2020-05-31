@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pipercrux/widgets/app/model/app.model.dart';
 import 'package:pipercrux/widgets/content/model/content.model.dart';
-import 'package:pipercrux/widgets/content/view/file-tile.component.dart';
 import 'package:pipercrux/widgets/content/view/users-list.view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -14,7 +14,8 @@ class ContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeModel = Provider.of<ContentModel>(context);
+    final contentModel = Provider.of<ContentModel>(context);
+    final appModel = Provider.of<AppModel>(context);
 
     List<Widget> _widgetOptions = <Widget>[
       FilesListView(),
@@ -22,7 +23,11 @@ class ContentView extends StatelessWidget {
     ];
 
     void _onItemTapped(int index) {
-      homeModel.changePage(index);
+      contentModel.changePage(index);
+    }
+
+    void _onLock() {
+      appModel.changePage();
     }
 
     return Scaffold(
@@ -33,11 +38,11 @@ class ContentView extends StatelessWidget {
             color: Color(0xFF26A69A),
           ),
           tooltip: 'Show Snackbar',
-          onPressed: () {},
+          onPressed: _onLock,
         ),
       ]),
       body: Center(
-        child: _widgetOptions.elementAt(homeModel.getIndex()),
+        child: _widgetOptions.elementAt(contentModel.getIndex()),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -50,7 +55,7 @@ class ContentView extends StatelessWidget {
             title: Text("Users"),
           ),
         ],
-        currentIndex: homeModel.getIndex(),
+        currentIndex: contentModel.getIndex(),
         selectedItemColor: Colors.teal[150],
         onTap: _onItemTapped,
       ),

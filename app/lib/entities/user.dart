@@ -1,10 +1,8 @@
-class User {
-  String id;
-  String name;
-  String password;
-  List<User> friends;
-  int wallet;
+class UserModel {
+  String login;
+  String filler;
 
-  User(this.id, this.name, this.password, this.friends,
-      this.wallet);
+  UserModel(this.login, this.filler);
+
+
 }

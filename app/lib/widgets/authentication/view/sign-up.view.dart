@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pipercrux/widgets/app/model/app.model.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -8,13 +9,18 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final signUpModel = Provider.of<SignUpModel>(context);
+    final appModel = Provider.of<AppModel>(context);
 
     const TextStyle optionStyle =
     TextStyle(fontSize: 30);
 
+    void _onProceed() {
+      appModel.changePage();
+    }
 
-    return Center(
+    return Container(
+        width: 300,
+        height: 500,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -46,7 +52,7 @@ class SignUpView extends StatelessWidget {
             ),
             Spacer(flex: 2,),
             RaisedButton(
-              onPressed: () {},
+              onPressed: _onProceed,
               padding: const EdgeInsets.all(15.0),
               color:  Color(0xFF26A69A),
               child: Text('Proceed', style: TextStyle(fontSize: 20)),

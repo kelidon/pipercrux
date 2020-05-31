@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:pipercrux/entities/user.dart';
 
 class UserTileComponent extends StatelessWidget {
-  UserTileComponent({Key key, this.login, this.filler}) : super(key: key);
+  const UserTileComponent(
+      {Key key,
+        @required this.animation,
+        this.onTap,
+        @required this.user,
+        this.selected: false})
+      : assert(animation != null),
+        assert(selected != null),
+        super(key: key);
 
-  final String login;
-  final String filler;
+  final Animation<double> animation;
+  final VoidCallback onTap;
+  final bool selected;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
-    //final homeModel = Provider.of<ContentModel>(context);
     const TextStyle loginStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     const TextStyle fillerStyle = TextStyle(fontSize: 15, color: Colors.grey);
 
@@ -21,7 +31,7 @@ class UserTileComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              login,
+              user.login,
               style: loginStyle,
             ),
             Container(
@@ -32,7 +42,7 @@ class UserTileComponent extends StatelessWidget {
               ),
             ),
             Text(
-              filler,
+              user.filler,
               style: fillerStyle,
             ),
           ],

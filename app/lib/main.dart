@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:pipercrux/widgets/app/model/app.model.dart';
+import 'package:pipercrux/widgets/app/view/app.view.dart';
 import 'package:pipercrux/widgets/authentication/model/auth.model.dart';
 import 'package:pipercrux/widgets/authentication/view/auth.view.dart';
 import 'package:pipercrux/widgets/content/model/content.model.dart';
@@ -13,28 +15,20 @@ void main() {
 }
 
 class Application extends StatelessWidget {
-  bool isLogged = true;
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pipercrux',
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: isLogged
-          ?
-      ChangeNotifierProvider<ContentModel>(
-        create: (_) => ContentModel(),
-        child: ContentView(title: 'Pipercrux',),
-      )
-          :
-      ChangeNotifierProvider<AuthModel>(
-        create: (_) => AuthModel(),
-        child: AuthView(title: 'Pipercrux',),
+      home: ChangeNotifierProvider<AppModel>(
+        create: (_) => AppModel(),
+        child: AppView(),
       ),
     );
   }
 }
-
