@@ -18,12 +18,7 @@ class ContentView extends StatelessWidget {
 
     List<Widget> _widgetOptions = <Widget>[
       FilesListView(),
-      //TestList(),
       UsersListView(),
-//      ChangeNotifierProvider<PageModel>(
-//        builder: (_) => PageModel(),
-//        child: Page(),
-//      ),
     ];
 
     void _onItemTapped(int index) {
@@ -31,9 +26,16 @@ class ContentView extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(title: Text(title), actions: <Widget>[
+        IconButton(
+          icon: const Icon(
+            Icons.lock_outline,
+            color: Color(0xFF26A69A),
+          ),
+          tooltip: 'Show Snackbar',
+          onPressed: () {},
+        ),
+      ]),
       body: Center(
         child: _widgetOptions.elementAt(homeModel.getIndex()),
       ),
