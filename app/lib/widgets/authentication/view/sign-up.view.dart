@@ -88,8 +88,7 @@ class _SignUpViewState extends State<SignUpView> {
             final created = await controller.signUp(username, rawPassword, rawKey);
 
             log.i('created $created');
-            authState.user= created;
-
+            authState.user = created;
           },
           padding: const EdgeInsets.all(15.0),
           color: Color(0xFF26A69A),

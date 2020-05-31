@@ -64,10 +64,10 @@ class _SignInViewState extends State<SignInView> {
             final rawPassword = _passwordController.text;
             log.d('submitting $username:$rawPassword');
 
-            final user = await controller .attemtSignIn(username, rawPassword);
-            
+            final user = await controller.attemtSignIn(username, rawPassword);
+
             // todo: notify of bad credentials
-            authState.user = user;        
+            authState.user = user;
           },
           padding: const EdgeInsets.all(15.0),
           color: Color(0xFF26A69A),
