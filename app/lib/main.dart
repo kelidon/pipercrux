@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'widgets/views/auth.view.dart';
+import 'package:pipercrux/widgets/authorization/model/auth.model.dart';
+import 'package:pipercrux/widgets/authorization/view/auth.view.dart';
+import 'package:pipercrux/widgets/content/model/content.model.dart';
+import 'package:pipercrux/widgets/content/view/content.view.dart';
 import 'package:provider/provider.dart';
-import 'package:pipercrux/widgets/models/auth.model.dart';
 
 Logger log = new Logger();
 void main() {
@@ -11,6 +13,8 @@ void main() {
 }
 
 class Application extends StatelessWidget {
+  bool isLogged = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,12 +23,18 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: ChangeNotifierProvider<AuthModel>(
-        builder: (_) => AuthModel(),
+      home: isLogged
+          ?
+      ChangeNotifierProvider<ContentModel>(
+        create: (_) => ContentModel(),
+        child: ContentView(title: 'Pipercrux',),
+      )
+          :
+      ChangeNotifierProvider<AuthModel>(
+        create: (_) => AuthModel(),
         child: AuthView(title: 'Pipercrux',),
       ),
     );
-    // );
   }
 }
 
