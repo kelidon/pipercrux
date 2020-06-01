@@ -3,8 +3,10 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:pipercrux/entities/file.dart';
 import 'package:pipercrux/entities/user.dart';
 import 'package:pipercrux/widgets/content/model/animated_list_model.dart';
+import 'package:pipercrux/widgets/content/model/users_list_model.dart';
 import 'package:pipercrux/widgets/content/view/add_user_view.dart';
 import 'package:pipercrux/widgets/content/view/content_view.dart';
+import 'package:pipercrux/widgets/content/view/user_radiobutton_component.dart';
 import 'package:pipercrux/widgets/content/view/user_tile_component.dart';
 import 'package:provider/provider.dart';
 
@@ -63,10 +65,10 @@ class _UsersListViewState extends State<UsersListView> {
     );
   }
 
-  void _insert() {
+  void _insert(UserModel user) {
     final int index =
         _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
-    _list.insert(index, UserModel('its MARRIOO', '255.255.255.0'));
+    _list.insert(index, user);
   }
 
   void _remove() {
@@ -80,21 +82,24 @@ class _UsersListViewState extends State<UsersListView> {
 
   @override
   Widget build(BuildContext context) {
+    final usersListModel = Provider.of<UsersListModel>(context);
+
     return Scaffold(
-      body: AnimatedList(
-        key: _listKey,
-        initialItemCount: _list.length,
-        itemBuilder: _buildItem,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddUserView()),
-          );
-        },
-        child: Icon(LineAwesomeIcons.plus),
-      ),
+      body: usersListModel.isAdd
+          ? AddUserView()
+          : AnimatedList(
+              key: _listKey,
+              initialItemCount: _list.length,
+              itemBuilder: _buildItem,
+            ),
+      floatingActionButton: usersListModel.isAdd
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                usersListModel.changePage();
+              },
+              child: Icon(LineAwesomeIcons.plus),
+            ),
     );
   }
 }

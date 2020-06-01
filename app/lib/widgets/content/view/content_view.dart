@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pipercrux/widgets/content/model/content_model.dart';
+import 'package:pipercrux/widgets/content/model/files_list_model.dart';
+import 'package:pipercrux/widgets/content/model/users_list_model.dart';
 import 'package:pipercrux/widgets/content/view/users_list_view.dart';
 import 'package:provider/provider.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -18,8 +20,14 @@ class ContentView extends StatelessWidget {
     final authState = Provider.of<AuthStatusNotifier>(context);
 
     List<Widget> _widgetOptions = <Widget>[
-      FilesListView(),
-      UsersListView(),
+      ChangeNotifierProvider<FilesListModel>(
+        create: (_) => FilesListModel(),
+        child: FilesListView(),
+      ),
+      ChangeNotifierProvider<UsersListModel>(
+        create: (_) => UsersListModel(),
+        child: UsersListView(),
+      )
     ];
 
     void _onItemTapped(int index) {

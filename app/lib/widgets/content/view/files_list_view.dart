@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:pipercrux/entities/file.dart';
 import 'package:pipercrux/widgets/content/model/animated_list_model.dart';
+import 'package:pipercrux/widgets/content/model/files_list_model.dart';
 import 'package:pipercrux/widgets/content/view/content_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../main.dart';
+import 'file_picker_view.dart';
 import 'file_tile_component.dart';
 
 class FilesListView extends StatefulWidget {
@@ -85,14 +87,22 @@ class _FilesListViewState extends State<FilesListView> {
 
   @override
   Widget build(BuildContext context) {
+    final filesListModel = Provider.of<FilesListModel>(context);
+
     return Scaffold(
-      body: AnimatedList(
-        key: _listKey,
-        initialItemCount: _list.length,
-        itemBuilder: _buildItem,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _insert,
+      body: filesListModel.isAdd
+          ? FilePickerView()
+          : AnimatedList(
+              key: _listKey,
+              initialItemCount: _list.length,
+              itemBuilder: _buildItem,
+            ),
+      floatingActionButton: filesListModel.isAdd
+          ? null
+          : FloatingActionButton(
+        onPressed: () {
+          filesListModel.changePage();
+        },
         child: Icon(LineAwesomeIcons.plus),
       ),
     );
